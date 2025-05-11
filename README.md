@@ -8,7 +8,7 @@
 
 | 数据集名称         | 规模（图片数） | 输入/输出           | 公开性  | 下载链接 |
 |------------------|---------------|---------------------|--------|----------|
-| **COCO**         | ~32.8万       | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
+| **COCO**         | ~33万       | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
 | **CC3M**         | ~300万        | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-captions) |
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
@@ -25,7 +25,7 @@
 
 - **简介**：MS-COCO（Microsoft Common Objects in Context）是一个大规模的图像识别、分割和描述数据集，收集了日常生活场景中的图片，每张图片配有5条人工英文描述。
 - **输入/输出**：英文描述（caption）⇄ 图片
-- **规模**：约32.8万张图片，164万条描述
+- **规模**：约33万张图片，每张图片5条描述
 - **数据格式样例**：
     ```
     {
