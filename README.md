@@ -80,18 +80,27 @@
 ### 4. LAION-400M / LAION-5B
 
 - **简介**：目前规模最大的公开英文图文对数据集，自动抓取+CLIP过滤。
-- **输入/输出**：图片URL + 英文描述
+- **输入/输出**：文本-图像，图像-文本/相似图像
 - **规模**：400M/5B对
 - **数据格式样例**：
     ```json
-    {
-      "URL": "https://...",
-      "TEXT": "A group of people riding horses on a beach."
-    }
+    FeaturesDict({
+        'caption': Text(shape=(), dtype=string),
+        'image': Image(shape=(None, None, 3), dtype=uint8, description=image),
+        'license': Text(shape=(), dtype=string),
+        'nsfw': ClassLabel(shape=(), dtype=int64, num_classes=4),
+        'original_height': Scalar(shape=(), dtype=int32, description=original height of the image),
+        'original_width': Scalar(shape=(), dtype=int32, description=original width of the image),
+        'similarity': Scalar(shape=(), dtype=float64, description=cosine similarity score between the text and image embedding. Missing values default to -1.0),
+        'url': Text(shape=(), dtype=string),})
     ```
 - **下载链接**：[LAION-400M](https://laion.ai/blog/laion-400-open-dataset/)、[LAION-5B](https://laion.ai/blog/laion-5b/)
-- **数据来源与选择理由**：自动化大规模爬取，CLIP相关性过滤，适合大模型训练。
-- **构造过程**：网络抓取 → CLIP筛选 → 多轮去噪
+- **数据来源与构造过程**：1. 从Common Crawl数据集中解析HTML IMG标签及alt-text属性，提取图像与文本配对。
+2. 基于以下条件剔除不适合的样本：
+Alt-text长度少于5字符或图像大小小于5KB。
+使用CLIP计算图像与文本的余弦相似度，低于0.3的样本被剔除。
+通过CLIP嵌入过滤非法内容。
+- **选取理由**：弥补当前多模态模型训练中公开大规模数据集的不足
 - **常用模型**：Stable Diffusion、Imagen、GLIDE等
 - **评价指标**：同上
 
