@@ -8,14 +8,14 @@
 
 | 数据集名称         | 规模（图片数） | 输入/输出           | 公开性  | 下载链接 |
 |------------------|---------------|---------------------|--------|----------|
-| **COCO**         | ~33万       | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
+| **COCO**         | ~33万         | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
 | **CC3M**         | ~300万        | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-captions) |
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
 | **LAION-5B**     | ~50亿         | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-5b/) |
 | **SBU Captions** | ~100万        | 图片+英文描述        | 公开   | [链接](https://www.cs.virginia.edu/~vicente/sbucaptions/) |
 | **DiffusionDB**  | ~1400万       | 用户prompt+生成图片  | 公开   | [链接](https://poloclub.github.io/diffusiondb/) |
-| **PartiPrompts** | ~1.6万        | 精细文本+图片        | 公开   | [链接](https://github.com/google-research/parti-prompts) |
+| **PartiPrompts** | ~1.6万        | 精细文本             | 公开   | [链接](https://github.com/google-research/parti-prompts) |
 
 ---
 
@@ -206,6 +206,47 @@
   2. PartiPrompts 提供了1600条多样化英文描述，更全面地测试和挖掘文本到图像模型的极限能力，适用于细粒度和高难度评测。
 - **常用模型**：Parti、Imagen等评测
 - **评价指标**：主要采用人工主观评价 (Human Evaluation)
+
+---
+
+### 8. Localized Narratives
+
+- **简介**  
+  Localized Narratives 是一种全新的多模态图像标注方式，旨在更紧密地连接视觉与语言
+- **输入/输出** : 文本-图像
+- **规模** ：848,749图像标注 (包含COCO(123k), ADE20K(20k), Flickr30k(32k), Open Image(671k))
+
+- **数据格式样例**  
+  ```
+ {
+  dataset_id: 'mscoco_val2017',
+  image_id: '137576',
+  annotator_id: 93,
+  caption: 'In this image there are group of cows standing and eating th...',
+  timed_caption: [{'utterance': 'In this', 'start_time': 0.0, 'end_time': 0.4}, ...],
+  traces: [[{'x': 0.2086, 'y': -0.0533, 't': 0.022}, ...], ...],
+  voice_recording: 'coco_val/coco_val_137576_93.ogg'
+ }
+  ```
+
+- **下载链接**  
+  [Localized Narratives Download](https://google.github.io/localized-narratives/)
+
+- **数据来源与构造过程**  
+  - 标注者一边用语音描述图片内容，一边用鼠标同步指向所述对象或关系。
+  - 语音流经过自动语音识别（ASR）和人工转录，确保文本准确，并通过序列对齐算法实现语音-文本-鼠标轨迹的精确同步。
+
+- **选择理由**
+  - 传统方法对视觉-语言的连接还不够细致，很多重要的词（特别是关系、动作等）在图片中并没有被具体定位和标注。
+  - LN实现每个词语与图像区域的高密度一一对应，包括名词、动词、关系词等。
+  - 能显著提升模型在复杂场景理解、多目标定位和细粒度描述等任务的能力。
+
+- **常用模型**  
+  BLIP、OFA、Flamingo 等多模态大模型
+
+- **评价指标**  
+  - 量化指标：METEOR、CIDEr、BLEU 等  
+  - 质量评定：人工主观评价
 
 ---
 
