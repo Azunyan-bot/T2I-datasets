@@ -216,19 +216,18 @@
 - **输入/输出** : 文本-图像
 - **规模** ：848,749图像标注 (包含COCO(123k), ADE20K(20k), Flickr30k(32k), Open Image(671k))
 
-- **数据格式样例**  
-  ```
- {
-  dataset_id: 'mscoco_val2017',
-  image_id: '137576',
-  annotator_id: 93,
-  caption: 'In this image there are group of cows standing and eating th...',
-  timed_caption: [{'utterance': 'In this', 'start_time': 0.0, 'end_time': 0.4}, ...],
-  traces: [[{'x': 0.2086, 'y': -0.0533, 't': 0.022}, ...], ...],
-  voice_recording: 'coco_val/coco_val_137576_93.ogg'
- }
-  ```
-
+- **数据格式样例**:
+      ```
+     {
+      dataset_id: 'mscoco_val2017',
+      image_id: '137576',
+      annotator_id: 93,
+      caption: 'In this image there are group of cows standing and eating th...',
+      timed_caption: [{'utterance': 'In this', 'start_time': 0.0, 'end_time': 0.4}, ...],
+      traces: [[{'x': 0.2086, 'y': -0.0533, 't': 0.022}, ...], ...],
+      voice_recording: 'coco_val/coco_val_137576_93.ogg'
+     }
+      ```
 - **下载链接**  
   [Localized Narratives Download](https://google.github.io/localized-narratives/)
 
