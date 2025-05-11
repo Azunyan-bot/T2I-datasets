@@ -13,8 +13,7 @@
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
 | **LAION-5B**     | ~50亿         | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-5b/) |
-| **SBU Captions** | ~100万        | 图片+英文描述        | 公开   | [链接](https://www.cs.virginia.edu/~vicente/sbucaptions/) |
-| **DiffusionDB**  | ~1400万       | 用户prompt+生成图片  | 公开   | [链接](https://poloclub.github.io/diffusiondb/) |
+| **DiffusionDB**  | ~1400万       | 图片+描述  | 公开   | [链接](https://github.com/poloclub/diffusiondb) |
 | **PartiPrompts** | ~1.6万        | 精细文本             | 公开   | [链接](https://github.com/google-research/parti-prompts) |
 | **Localized Narratives** | ~85万 | 图片+英文描述        | 公开   | [链接](https://google.github.io/localized-narratives/) |
 | **WebLI** | ~100亿 | 图片+109种语言       | 未公开   | [链接](https://github.com/kyegomez/PALI) |
@@ -139,41 +138,42 @@
 
 ---
 
-### 5. SBU Captions
+### 6. DiffusionDB
 
-- **简介**：早期网络图片+alt文本对，人工过滤。
-- **输入/输出**：alt文本 ⇄ 图片
-- **规模**：约100万对
-- **数据格式样例**：
-    ```json
-    {
-      "image_url": "http://...",
-      "caption": "A dog playing in the grass."
-    }
-    ```
-- **下载链接**：[SBU Captions Download](https://www.cs.virginia.edu/~vicente/sbucaptions/)
-- **数据来源与选择理由**：早期大规模弱标注数据集，便于模型预训练。
-- **构造过程**：网络抓取 → 自动提取 → 人工审核
-
+整理后的 **DiffusionDB** 数据集简介如下：
 
 ---
 
-### 6. DiffusionDB
+### 13. DiffusionDB
 
-- **简介**：收集用户实际prompt和由Stable Diffusion生成的图片对。
-- **输入/输出**：用户prompt ⇄ 生成图片
-- **规模**：约1400万对
-- **数据格式样例**：
-    ```json
-    {
-      "prompt": "A futuristic city skyline at sunset, digital art",
-      "image_url": "https://..."
-    }
-    ```
-- **下载链接**：[DiffusionDB Download](https://poloclub.github.io/diffusiondb/)
-- **数据来源与选择理由**：真实用户生成记录，便于分析实际生成效果和prompt工程。
-- **构造过程**：收集用户生成记录 → 去重 → 公开
+- **简介**  
+  DiffusionDB 收集了由 Stable Diffusion 用户社区真实生成的图片及其对应的prompt，反映了真实用户的多样化需求和生成习惯。
 
+- **输入/输出** 文本-图片
+
+- **规模**  
+  - 第一版（v1）：约200万组 文本-图片对  
+  - 最新版（v2）：超过1400万组 文本-图片对
+
+- **数据格式样例**
+
+| image_name                               | prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |   part_id |       seed |   step |   cfg |   sampler |   width |   height | user_name                                                        | timestamp                 |   image_nsfw |   prompt_nsfw |
+|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|-----------:|-------:|------:|----------:|--------:|---------:|:-----------------------------------------------------------------|:--------------------------|-------------:|--------------:|
+| 0c46f719-1679-4c64-9ba9-f181e0eae811.png | a small liquid sculpture, corvette, viscous, reflective, digital art                                                                                                                                                                                                                                                                                                                                                                                                           |      1050 | 2026845913 |     50 |   7   |         8 |     512 |      512 | c2f288a2ba9df65c38386ffaaf7749106fed29311835b63d578405db9dbcafdb | 2022-08-11 09:05:00+00:00 |    0.0845108 |   0.00383462  |
+| a00bdeaa-14eb-4f6c-a303-97732177eae9.png | human sculpture of lanky tall alien on a romantic date at italian restaurant with smiling woman, nice restaurant, photography, bokeh                                                                                                                                                                                                                                                                                                                                           |       905 | 1183522603 |     50 |  10   |         8 |     512 |      768 | df778e253e6d32168eb22279a9776b3cde107cc82da05517dd6d114724918651 | 2022-08-19 17:55:00+00:00 |    0.692934  |   0.109437    |
+| 6e5024ce-65ed-47f3-b296-edb2813e3c5b.png | portrait of barbaric spanish conquistador, symmetrical, by yoichi hatakenaka, studio ghibli and dan mumford                                                                                                                                                                                                                                                                                                                                                                    |       286 | 1713292358 |     50 |   7   |         8 |     512 |      640 | 1c2e93cfb1430adbd956be9c690705fe295cbee7d9ac12de1953ce5e76d89906 | 2022-08-12 03:26:00+00:00 |    0.0773138 |   0.0249675   |
+
+
+- **下载链接**  
+  [DiffusionDB Download](https://huggingface.co/datasets/poloclub/diffusiondb)
+
+- **数据来源与构造过程**  
+  - 数据集通过抓取 Stable Diffusion 官方 Discord 服务器收集，包含 1400 万张图片、180 万条独特提示词及详细的生成超参数（如种子、步数、CFG scale、采样器、图片尺寸等）。
+  - NSFW 检测：采用先进的文本与图片 NSFW 检测模型，为每对图片与提示词打分，便于后续研究过滤不安全内容。
+  - 文件结构与分发：数据以灵活的文件夹结构组织，包含详细的元数据（如 Parquet 格式表），并以开源方式（CC0 1.0 协议）公开发布，用户可在线下载和筛选。
+
+- **选择理由**  
+  - 真实反映用户在实际生成任务中的文本描述和参数设置，覆盖风格、主题极为丰富，适合用于训练、微调和评测文本到图像生成模型，尤其适合人类行为建模和生成偏好分析。
 
 ---
 
