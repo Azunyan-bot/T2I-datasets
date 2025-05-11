@@ -77,10 +77,6 @@
 
 ---
 
-整理如下（适合插入你的GitHub页面）：
-
----
-
 ### 4. LAION-400M / LAION-5B
 
 - **简介**：目前规模最大的公开英文图文对数据集，采用自动网络爬取与CLIP模型过滤。
@@ -89,7 +85,7 @@
   - 图像 → 文本/相似图像
 - **规模**：400M（LAION-400M）/ 5B（LAION-5B）对
 - **数据格式样例**：
-    ```json
+    ```
     FeaturesDict({
         "caption": Text(shape=(), dtype=string),
         "image": Image(shape=(None, None, 3), dtype=uint8, description=image),
