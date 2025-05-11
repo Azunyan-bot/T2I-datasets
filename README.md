@@ -1,6 +1,6 @@
 # 文生图（Text-to-Image）主流数据集汇总（近三年）
 
-本项目收集了近三年主流文生图（Text-to-Image, T2I）模型所用的开源数据集，包含数据集简介、规模、下载链接、格式样例、构建过程与评价指标等信息，方便研究者查阅与对比。
+本项目收集了近三年主流文生图（Text-to-Image, T2I）模型所用的数据集，包含数据集简介、规模、下载链接、格式样例、构建过程与评价指标等信息，方便研究者查阅与对比。
 
 ---
 
@@ -8,7 +8,7 @@
 
 | 数据集名称         | 规模（图片数） | 输入/输出           | 公开性  | 下载链接 |
 |------------------|---------------|---------------------|--------|----------|
-| **MS-COCO**         | ~33万         | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
+| **MS-COCO**      | ~33万         | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
 | **CC3M**         | ~300万        | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-captions) |
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
@@ -17,6 +17,9 @@
 | **DiffusionDB**  | ~1400万       | 用户prompt+生成图片  | 公开   | [链接](https://poloclub.github.io/diffusiondb/) |
 | **PartiPrompts** | ~1.6万        | 精细文本             | 公开   | [链接](https://github.com/google-research/parti-prompts) |
 | **Localized Narratives** | ~85万 | 图片+英文描述        | 公开   | [链接](https://google.github.io/localized-narratives/) |
+| **WebLI** | ~100亿 | 图片+109种语言       | 未公开   | [链接](https://github.com/kyegomez/PALI) |
+| **COYO-700M** | ~7.4亿 | 图片+英文描述       | 公开   | [链接](https://github.com/kakaobrain/coyo-dataset) |
+| **Pick-a-Pic** | ~100万 | 图片+英文描述+偏好       | 公开   | [链接](https://github.com/yuvalkirstain/PickScore) |
 
 ---
 
@@ -74,10 +77,6 @@
   3. 每张图片由5位不同的人工标注员（通过 Amazon Mechanical Turk 等众包平台）独立用英文撰写自然语言描述，要求内容准确、流畅，能体现图片中的主要内容、动作及场景。
   4. 标注任务设置多重审核机制，确保数据的准确性和一致性。
 - **选取理由**：相比仅包含“典型”物体的图片（iconic images），COCO 更注重收集包含丰富上下文和非典型视角（non-iconic）的图片，有助于提升模型的泛化能力和对真实场景的理解。
-- **常用模型**：AttnGAN、DF-GAN、DALL·E 2等
-- **评价指标**：
-    - 量化：FID、IS、CLIP Score
-    - 质量评定：人工打分（如A/B测试）、Turing Test
 
 ---
 
@@ -105,8 +104,6 @@
 - **选取理由**：
     - 数据规模大，覆盖类型丰富，有助于提升模型的泛化能力，特别适合训练能理解复杂场景和多样图片的自动图像描述模型；
     - 自动化构建流程，易于扩展和更新
-- **常用模型**：DALL·E、CogView等
-- **评价指标**：同上
 
 ---
 
@@ -139,8 +136,6 @@
   3. 使用CLIP模型计算图像与文本的余弦相似度，低于0.3的样本被剔除。  
   4. 通过CLIP嵌入进一步过滤非法或不相关内容。
 - **选取理由**：弥补多模态大模型训练中公开大规模数据集的不足，内容多样、覆盖面广，适合预训练。
-- **常用模型**：Stable Diffusion、Imagen、GLIDE等
-- **评价指标**：FID、IS、CLIP Score等量化指标，以及人工主观评价等（同上）。
 
 ---
 
@@ -159,8 +154,7 @@
 - **下载链接**：[SBU Captions Download](https://www.cs.virginia.edu/~vicente/sbucaptions/)
 - **数据来源与选择理由**：早期大规模弱标注数据集，便于模型预训练。
 - **构造过程**：网络抓取 → 自动提取 → 人工审核
-- **常用模型**：AttnGAN等
-- **评价指标**：同上
+
 
 ---
 
@@ -179,8 +173,7 @@
 - **下载链接**：[DiffusionDB Download](https://poloclub.github.io/diffusiondb/)
 - **数据来源与选择理由**：真实用户生成记录，便于分析实际生成效果和prompt工程。
 - **构造过程**：收集用户生成记录 → 去重 → 公开
-- **常用模型**：Stable Diffusion系列
-- **评价指标**：同上，另可分析prompt多样性
+
 
 ---
 
@@ -200,7 +193,6 @@
 - **选择理由**：
   1. 现有基准如 MS-COCO 和 Localized Narratives 虽然对评测文本到图像合成系统很有帮助，但其描述多局限于日常场景和自然图像中的物体，难以覆盖更广泛的开放域任务。
   2. PartiPrompts 提供了1600条多样化英文描述，更全面地测试和挖掘文本到图像模型的极限能力，适用于细粒度和高难度评测。
-- **常用模型**：Parti、Imagen等评测
 - **评价指标**：主要采用人工主观评价 (Human Evaluation)
 
 ---
@@ -236,14 +228,53 @@
   - LN实现每个词语与图像区域的高密度一一对应，包括名词、动词、关系词等。
   - 能显著提升模型在复杂场景理解、多目标定位和细粒度描述等任务的能力。
 
-- **常用模型**  
-  BLIP、OFA、Flamingo 等多模态大模型
+---
 
-- **评价指标**  
-  - 量化指标：METEOR、CIDEr、BLEU 等  
-  - 质量评定：人工主观评价
+### 11. COYO-700M
+
+- **简介** : COYO-700M is a large-scale dataset that contains 747M image-text pairs as well as many other meta-attributes to increase the usability to train various models.
+
+- **输入/输出**: 文本-图像
+
+- **规模**： 747M
+
+- **数据格式样例**
+## Dataset Preview
+| id            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | text                                                                                                                                                                               | width | height | image_phash      | text_length | word_count | num_tokens_bert | num_tokens_gpt | num_faces | clip_similarity_vitb32 | clip_similarity_vitl14 | nsfw_score_opennsfw2 | nsfw_score_gantman | watermark_score | aesthetic_score_laion_v2 |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|--------|------------------|-------------|------------|-----------------|----------------|-----------|------------------------|------------------------|----------------------|--------------------|-----------------|--------------------------|
+| 4896263451343 | <img src="https://cdn.shopify.com/s/files/1/0190/8574/products/Art_Riley-Monterey_Fishing_Fleet_1_grande.jpg?v=1479962684" width="400" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Fishing Fleet (Monterey), California art by Art Riley. HD giclee art prints for sale at CaliforniaWatercolor.com - original California paintings, & premium giclee prints for sale | 600   | 447    | bac58374982e0fc7 | 178         | 25         | 39              | 40             | 0         | 0.319336               | 0.248169               | 2.54512e-05          | 0.0293861          | 0.0406009       | 7.04812                  |
+| 1425929344479 | <img src="https://www.ephotozine.com/resize/2018/07/xlrg/121543_1518912380.jpg?RTUdGk5cXyJFBQgJVANtcQlnYF8JERFaGwJRNQh6SlYUAEw1cmsCdg1hAWoxXFNGLSI=" width="400" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | The Gate by Pete2453                                                                                                                                                               | 600   | 347    | 8374726575bc0f8a | 20          | 4          | 6               | 6              | 0         | 0.24939                | 0.203735               | 6.97374e-06          | 0.00823276         | 0.0721415       | 6.98521                  |                                                                                                                                   
+
+- **下载链接**  
+  [COYO-700M Download & Info](https://github.com/kakaobrain/coyo-dataset)
+
+- **数据来源与构造过程**  
+  - 从 Common Crawl 等公开网页数据中自动爬取图片及其相关文本（如alt文本、标题、上下文）。
+  - 经过多轮自动与人工过滤，剔除低质量、重复、非英文以及不适合公开和商用的内容。
+  - 所有图片均保留原始链接，确保可溯源和合规使用。
+
+- **选择理由**  
+  - 规模极大，覆盖内容极其丰富，适合训练大规模多模态模型，提升模型对开放域和长尾内容的理解能力。
+  - 数据合规（可商用、可溯源），适合企业级和学术研究。
 
 ---
+
+### 2. Pick-a-Pic
+
+- **简介**：Pick-a-Pic 是一个开放的文本到图像用户偏好数据集，基于真实用户在Web应用中对生成图像的选择与反馈，收集了大规模、真实、多样的文本提示与对应生成图片的偏好对比数据。
+- **输入/输出**：文本⇄ 图片对及用户偏好标签（选A/B或平局）。
+- **规模**：超100万条
+- **数据格式样例**：
+    暂无
+
+- **下载链接**：[Pick-a-Pic v1](https://huggingface.co/datasets/yuvalkirstain/pickapic_v1) / [Pick-a-Pic v2](https://huggingface.co/datasets/yuvalkirstain/pickapic_v2) [目前不可用](https://github.com/yuvalkirstain/PickScore)
+- **数据来源与构造过程**：选取多样化的英文 prompt，使用多个主流文本生成图像模型（如 Stable Diffusion、DALL-E 2、Imagen 等）生成对应图片。
+通过众包平台招募标注员，对每组图片进行主观偏好选择，收集大规模人工对比标注数据。
+- **选取理由**：相比于MS-COCO等数据集，Pick-a-Pic的prompt来源于真实用户需求，内容更具创造性和多样性，更能代表实际文本到图像生成的应用场景。偏好数据反映了真实用户的审美和意图，有助于模型更好地对齐人类偏好。
+- **评价指标**：
+    - 量化：PickScore（基于CLIP的偏好预测得分）、CLIP-H、Aesthetics Score、FID等
+    - 质量评定：真实用户偏好（作为ground truth）、专家人工打分、Elo排序
+- **衍生工具**：PickScore（基于Pick-a-Pic训练的评分函数，公开可用，能自动预测用户偏好并用于模型评测与生成优化）
 
 ## 评价指标说明
 
