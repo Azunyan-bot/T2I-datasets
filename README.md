@@ -8,7 +8,7 @@
 
 | 数据集名称         | 规模（图片数） | 输入/输出           | 公开性  | 下载链接 |
 |------------------|---------------|---------------------|--------|----------|
-| **COCO**         | ~33万         | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
+| **MS-COCO**         | ~33万         | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
 | **CC3M**         | ~300万        | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-captions) |
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
@@ -16,6 +16,7 @@
 | **SBU Captions** | ~100万        | 图片+英文描述        | 公开   | [链接](https://www.cs.virginia.edu/~vicente/sbucaptions/) |
 | **DiffusionDB**  | ~1400万       | 用户prompt+生成图片  | 公开   | [链接](https://poloclub.github.io/diffusiondb/) |
 | **PartiPrompts** | ~1.6万        | 精细文本             | 公开   | [链接](https://github.com/google-research/parti-prompts) |
+| **Localized Narratives** | ~85万 | 图片+英文描述        | 公开   | [链接](https://google.github.io/localized-narratives/) |
 
 ---
 
