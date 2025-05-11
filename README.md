@@ -8,7 +8,7 @@
 
 | 数据集名称         | 规模（图片数） | 输入/输出           | 公开性  | 下载链接 |
 |------------------|---------------|---------------------|--------|----------|
-| **COCO**         | ~12.5万       | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
+| **COCO**         | ~32.8万       | 图片+英文描述        | 公开   | [链接](https://cocodataset.org/#download) |
 | **CC3M**         | ~300万        | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-captions) |
 | **CC12M**        | ~1200万       | 图片+英文描述        | 公开   | [链接](https://github.com/google-research-datasets/conceptual-12m) |
 | **LAION-400M**   | ~4亿          | 图片+英文描述        | 公开   | [链接](https://laion.ai/blog/laion-400-open-dataset/) |
@@ -21,21 +21,58 @@
 
 ## 数据集详细介绍
 
-### 1. COCO
+### 1. MS-COCO
 
-- **简介**：收集了日常生活场景图片，每张图片配有5条人工英文描述。
+- **简介**：MS-COCO（Microsoft Common Objects in Context）是一个大规模的图像识别、分割和描述数据集，收集了日常生活场景中的图片，每张图片配有5条人工英文描述。
 - **输入/输出**：英文描述（caption）⇄ 图片
-- **规模**：约12.5万张图片，62.5万条描述
+- **规模**：约32.8万张图片，164万条描述
 - **数据格式样例**：
-    ```json
+    ```
     {
-      "image_id": "000000391895",
-      "caption": "A man riding a wave on top of a surfboard."
+        "info": info,
+        "images": [image],
+        "annotations": [annotation],
+        "licenses": [license],
+    }
+
+    info{
+        "year": int,
+        "version": str,
+        "description": str,
+        "contributor": str,
+        "url": str,
+        "date_created": datetime,
+    }
+
+    image{
+        "id": int,
+        "width": int,
+        "height": int,
+        "file_name": str,
+        "license": int,
+        "flickr_url": str,
+        "coco_url": str,
+        "date_captured": datetime,
+    }
+
+    license{
+        "id": int,
+        "name": str,
+        "url": str,
+    }
+    annotation{
+        "id": int,
+        "image_id": int,
+        "caption": str,
     }
     ```
 - **下载链接**：[COCO Download](https://cocodataset.org/#download)
-- **数据来源与选择理由**：人工采集+众包标注，保证高质量和多样性，是视觉基准测试的黄金标准。
-- **构造过程**：图片采集 → 众包写描述 → 多轮审核
+- **数据来源与构造过程**：
+  1. 图片主要通过在 Flickr 等公开图片库中，搜索80类常见物体与多种场景类型的组合关键词获得，确保图片内容丰富且多样。
+  2. 所有图片经过人工筛选，优先保留包含多个物体、复杂背景或非典型视角（non-iconic）的图片。
+  3. 每张图片由5位不同的人工标注员（通过 Amazon Mechanical Turk 等众包平台）独立用英文撰写自然语言描述，要求内容准确、流畅，能体现图片中的主要内容、动作及场景。
+  4. 标注任务设置多重审核机制，确保数据的准确性和一致性。
+- **选取理由**：相比仅包含“典型”物体的图片（iconic images），COCO 更注重收集包含丰富上下文和非典型视角（non-iconic）的图片，有助于提升模型的泛化能力和对真实场景的理解。
 - **常用模型**：AttnGAN、DF-GAN、DALL·E 2等
 - **评价指标**：
     - 量化：FID、IS、CLIP Score
