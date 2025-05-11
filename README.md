@@ -190,21 +190,22 @@
 
 ### 7. PartiPrompts
 
-- **简介**：高质量、复杂描述配高质量图片，用于细粒度评测。
-- **输入/输出**：精细描述 ⇄ 图片
-- **规模**：约1.6万对
+- **简介**：多样化有挑战性的prompts
+- **输入/输出**：精细描述 → 图片
+- **规模**：1600 diverse English prompts
 - **数据格式样例**：
-    ```json
-    {
-      "prompt": "A detailed painting of a medieval city with a river running through it, bustling markets, and stone bridges.",
-      "image_url": "https://..."
-    }
     ```
-- **下载链接**：[PartiPrompts Download](https://github.com/google-research/parti-prompts)
-- **数据来源与选择理由**：人工精心设计，适合高质量评测。
-- **构造过程**：专家设计prompt → 匹配高质量图片
+    Prompt	Category	Challenge	Note
+    bond	Abstract	Basic	Biology-inspired concepts with multiple meanings
+    element	Abstract	Basic	Biology-inspired concepts with multiple meanings
+    ```
+- **下载链接**：[PartiPrompts Download](https://github.com/google-research/parti/blob/main/PartiPrompts.tsv)
+- **数据来源与构造过程**：部分 prompts 由研究团队自主创新设计，部分则通过人工筛选和采样近期相关论文中的典型 prompts.
+- **选择理由**：
+  1. 现有基准如 MS-COCO 和 Localized Narratives 虽然对评测文本到图像合成系统很有帮助，但其描述多局限于日常场景和自然图像中的物体，难以覆盖更广泛的开放域任务。
+  2. PartiPrompts 提供了1600条多样化英文描述，更全面地测试和挖掘文本到图像模型的极限能力，适用于细粒度和高难度评测。
 - **常用模型**：Parti、Imagen等评测
-- **评价指标**：主观质量评定为主
+- **评价指标**：主要采用人工主观评价 (Human Evaluation)
 
 ---
 
