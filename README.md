@@ -81,36 +81,31 @@
 
 ---
 
-### 2. Conceptual Captions 3M (CC3M)
+### 2. Conceptual Captions 3M/12M (CC3M/CC12M)
 
-- **简介**：大规模网络图片和自动提取的alt文本对。
-- **输入/输出**：英文alt文本 ⇄ 图片
-- **规模**：约300万对
+- **简介**：由Google提出的大规模自动化图像-文本配对数据集
+- **输入/输出**：文本-图片
+- **规模**：约331.8万对/约1242万对
 - **数据格式样例**：
-    ```json
-    {
-      "image_url": "http://...",
-      "caption": "A cat sitting on a windowsill looking outside."
-    }
-    ```
-- **下载链接**：[CC3M Download](https://github.com/google-research-datasets/conceptual-captions)
-- **数据来源与选择理由**：从网络自动抓取，弱标注，低成本扩展，适合大规模预训练。
-- **构造过程**：网页爬取 → 自动提取alt文本 → 自动/人工过滤
+    The Conceptual Captions training and validation sets are provided as TSV (tab-separated values) text files with the following columns:
+
+<p align='center'>Table 2: Columns in Train/Validation TSV files.</p>
+
+| Column   | Description                                                                      |
+| -------- | -------------------------------------------------------------------------------- |
+| 1        | Caption. The text has been tokenized and lowercased.                             |
+| 2        | Image URL                                                                        |
+- **下载链接**：[CC3M Download](https://github.com/google-research-datasets/conceptual-captions) [CC12M Download](https://github.com/google-research-datasets/conceptual-12m)
+- **数据来源与构造过程**：
+    - 自动抓取网页图片及其Alt-text描述；
+    - 图片过滤（尺寸、比例、内容安全）；
+    - 文本过滤（词性、情感、低频词、格式、与图片内容的相关性等）；
+    - 语义抽象化（将专有名词替换为上位词，去除地点、时间等难泛化信息）；
+    - 多轮过滤后，最终保留高质量、泛化性强的描述对。
+- **选取理由**：
+    - 数据规模大，覆盖类型丰富，有助于提升模型的泛化能力，特别适合训练能理解复杂场景和多样图片的自动图像描述模型；
+    - 自动化构建流程，易于扩展和更新
 - **常用模型**：DALL·E、CogView等
-- **评价指标**：同上
-
----
-
-### 3. Conceptual Captions 12M (CC12M)
-
-- **简介**：CC3M的扩展版，数据量更大。
-- **输入/输出**：英文alt文本 ⇄ 图片
-- **规模**：约1200万对
-- **数据格式样例**：同CC3M
-- **下载链接**：[CC12M Download](https://github.com/google-research-datasets/conceptual-12m)
-- **数据来源与选择理由**：更大规模，覆盖更丰富的语义空间。
-- **构造过程**：同CC3M
-- **常用模型**：CogView、DALL·E等
 - **评价指标**：同上
 
 ---
