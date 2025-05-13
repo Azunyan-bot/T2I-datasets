@@ -284,16 +284,20 @@
 - **IS (Inception Score)**：衡量生成图片的多样性和质量，越高越好。
 - **CLIP Score**：用CLIP模型计算生成图片与输入文本的相似度，越高越好。
 - **GenEval Score**: 不仅关注生成图像的质量，而且评估文本描述与生成图像之间的语义相关性，提供对生成图像的细粒度分析。
-<!--- **Precision/Recall**：评估生成图片的多样性与真实性。-->
+- **Precision/Recall**：评估生成图片的多样性与真实性sample fidelity and diversity。
 
 ### 质量评定（主观）
 
 - **人类评价**：每一个prompt生成两个图片，由5个不同的人来比较，最终majority vote （评价图片与文本的相关性、图片质量、图片真实性）。
 <!--- **Turing Test**：让人判断图片是AI生成还是人类拍摄。-->
 
-<!--### 其他参考指标
-
-- **Prompt Sensitivity**：模型对文本微小变化的响应能力。
+### 其他参考指标
+- **R-precision**: 通过对提取的图像和文本特征之间的检索结果进行排序，来衡量文本描述和生成的图像之间的视觉语义相似性。
+- **Semantic Object Accuracy**: SOA-C (i.e., the percentage of images per class in which a desired object is detected) and SOA-I (i.e., the percentage of images in which a desired object is detected)
+- **PSNR (峰值信噪比)**: PSNR 是基于均方误差（MSE）的指标，常用于评估图像质量，通常在 30dB 以上表示较好的图像质量。
+- **SSIM (结构相似度)**: SSIM 评价两个图像之间的结构相似性，考虑亮度、对比度和结构三个因素，更符合人类视觉感知。
+- **LPIPS (学习感知图像块相似度)**: LPIPS 是一种基于深度学习的方法，用于评估两幅图像的感知相似性，值越低表示图像越相似，相比 PSNR 和 SSIM 更符合人类的感知体验。
+<!--- **Prompt Sensitivity**：模型对文本微小变化的响应能力。
 - **Bias/Fairness**：生成内容的公平性、是否有偏见。
 - **Diversity**：同一prompt下生成图片的多样性。
 - **Usability**：生成图片在实际应用中的可用性（如插画、设计等）。-->
